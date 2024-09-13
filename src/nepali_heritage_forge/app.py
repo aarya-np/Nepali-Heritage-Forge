@@ -16,12 +16,12 @@ from gtts import gTTS
 import tempfile
 from pydub import AudioSegment
 
-AudioSegment.converter = "D:/virtual environment/nepalihertiageforge/ffmpeg/bin/ffmpeg.exe"
+AudioSegment.converter = "./ffmpeg/bin/ffmpeg.exe"
 
 
-checkpoint_path = r'D:\virtual environment\nepalihertiageforge\checkpoint-90858'
-model = AutoModelForSeq2SeqLM.from_pretrained(r'D:\virtual environment\nepalihertiageforge\M2M100')
-tokenizer = AutoTokenizer.from_pretrained(r'D:\virtual environment\nepalihertiageforge\M2M100')
+checkpoint_path = r'.\checkpoint-90858'
+model = AutoModelForSeq2SeqLM.from_pretrained(r'.\M2M100')
+tokenizer = AutoTokenizer.from_pretrained(r'.\M2M100')
 model_1 = PeftModel.from_pretrained(model, checkpoint_path)
 
 
@@ -76,8 +76,8 @@ def image_cleaning(image):
 
 def ocr(image):
     #clahe_image= histo(image)
-    pytesseract.pytesseract.tesseract_cmd = r'D:\virtual environment\nepalihertiageforge\Tesseract-OCR\tesseract.exe'
-    os.environ['TESSDATA_PREFIX'] = r'D:\virtual environment\nepalihertiageforge\Tesseract-OCR\tessdata'
+    pytesseract.pytesseract.tesseract_cmd = r'.\Tesseract-OCR\tesseract.exe'
+    os.environ['TESSDATA_PREFIX'] = r'.\Tesseract-OCR\tessdata'
     config = '--oem 1 --psm 6'
     d = pytesseract.image_to_string(image, output_type=Output.DICT, lang='san', config=config)
     return d['text']
